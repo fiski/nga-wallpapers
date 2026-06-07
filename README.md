@@ -14,6 +14,11 @@ wallpapers is both nicer to look at and easier on the panel. This app finds work
 that actually make good wallpapers, crops them exactly to my resolution, and drops
 them in a folder I point the OS slideshow at.
 
+It was also an experiment in building a UI without ever opening Figma. The whole
+interface was created purely by prompting and iterating against component and
+library docs (Base UI, Tailwind) rather than from a visual design tool. The current
+look is functional and intentionally plain; I plan to add my own design pass later.
+
 ## What it does
 
 - **Browse 68,000+ open-access works.** Filter by **Artwork Type** (Print,
