@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# NGA collection data — large and re-downloadable from
+# https://github.com/NationalGalleryOfArt/opendata
+/data/
+
+# Downloaded wallpaper output
+/wallpapers/
+
+# Build artifacts
+*.exe
+/build/
+
+# Frontend (dependencies + build output)
+node_modules/
+frontend/dist/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/

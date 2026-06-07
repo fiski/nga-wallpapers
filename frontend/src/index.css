@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* Isolated stacking context so Base UI popups always render above the app. */
+.root {
+  isolation: isolate;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Required for iOS 26+ Safari backdrop handling per Base UI docs; harmless elsewhere. */
+body {
+  position: relative;
+}
