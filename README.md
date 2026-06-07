@@ -122,16 +122,17 @@ documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Packaging (optional)
 
-To bundle a standalone Windows executable with PyInstaller, point it at the
-committed icon:
+A committed PyInstaller spec builds the standalone Windows executable (one-file,
+windowed, with the app icon baked in):
 
 ```
-pyinstaller --noconfirm --windowed --icon=icon.ico --name "NGA Wallpapers" scripts/wallpaper_web.py
+pyinstaller --noconfirm WallpaperBrowser.spec
 ```
 
-You will also need the built `frontend/dist` and a `data/` folder available next to
-the executable. The running window already uses the same icon via pywebview, and
-the frontend favicon lives at `frontend/public/favicon.svg`.
+Keep the built `frontend/dist` and the `data/` folder next to the resulting
+`WallpaperBrowser.exe` — the app loads them from alongside the executable. The
+running window also uses the same icon via pywebview, and the frontend favicon
+lives at `frontend/public/favicon.svg`.
 
 ## Data & license
 
