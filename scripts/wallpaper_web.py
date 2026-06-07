@@ -83,6 +83,23 @@ def resolve_index():
     return None
 
 
+def resolve_icon():
+    """Locate the window icon (icon.ico), in the frozen bundle or the repo."""
+    base = app_base_dir()
+    meipass = getattr(sys, "_MEIPASS", None)
+    candidates = []
+    if meipass:
+        candidates.append(os.path.join(meipass, "icon.ico"))
+    candidates += [
+        os.path.join(base, "icon.ico"),
+        os.path.join(base, "frontend", "public", "favicon.ico"),
+    ]
+    for c in candidates:
+        if os.path.isfile(c):
+            return c
+    return None
+
+
 def _default_out_dir():
     return os.path.join(app_base_dir(), "wallpapers")
 
@@ -335,7 +352,7 @@ def main():
             )
             window = webview.create_window("NGA Wallpaper Browser", html=html, js_api=api)
             api.set_window(window)
-            webview.start()
+            webview.start(icon=resolve_icon())
             return
         target = index
 
@@ -348,7 +365,7 @@ def main():
         min_size=(760, 540),
     )
     api.set_window(window)
-    webview.start(debug=DEV)
+    webview.start(debug=DEV, icon=resolve_icon())
 
 
 if __name__ == "__main__":

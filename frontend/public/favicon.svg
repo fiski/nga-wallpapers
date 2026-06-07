@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>NGA Wallpapers</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3e3a2"/>
+      <stop offset="0.5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8a6d1f"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1a30"/>
+      <stop offset="1" stop-color="#20406e"/>
+    </linearGradient>
+    <clipPath id="p"><rect x="11" y="11" width="42" height="42" rx="5"/></clipPath>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0a0a0c"/>
+  <rect x="6" y="6" width="52" height="52" rx="9" fill="url(#g)"/>
+  <rect x="10" y="10" width="44" height="44" rx="6" fill="#5c4a18"/>
+  <g clip-path="url(#p)">
+    <rect x="11" y="11" width="42" height="42" fill="url(#s)"/>
+    <circle cx="43" cy="22" r="6" fill="#e8eef7"/>
+    <polygon points="14,53 30,29 46,53" fill="#18314f"/>
+    <polygon points="35,53 45,37 53,53" fill="#1f3b60"/>
+    <polygon points="26.5,33 30,29 33.5,33" fill="#eef3fb"/>
+    <polygon points="42,41 45,37 48,41" fill="#eef3fb"/>
+  </g>
+</svg>

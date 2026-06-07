@@ -1,5 +1,7 @@
 # NGA Wallpapers
 
+<img src="docs/icon-256.png" alt="NGA Wallpapers app icon" width="110" align="right" />
+
 Browse the National Gallery of Art's open-access collection and download artworks
 as pixel-exact desktop wallpapers, center-cropped to your screen's resolution via
 the NGA IIIF image API and never upscaled.
@@ -117,6 +119,19 @@ exposes a small bridge to the backend. [pandas](https://pandas.pydata.org/) filt
 the collection CSVs, and the actual images are fetched and cropped through the NGA
 [IIIF](https://iiif.io/) image API. The data-extraction side of the pipeline is
 documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Packaging (optional)
+
+To bundle a standalone Windows executable with PyInstaller, point it at the
+committed icon:
+
+```
+pyinstaller --noconfirm --windowed --icon=icon.ico --name "NGA Wallpapers" scripts/wallpaper_web.py
+```
+
+You will also need the built `frontend/dist` and a `data/` folder available next to
+the executable. The running window already uses the same icon via pywebview, and
+the frontend favicon lives at `frontend/public/favicon.svg`.
 
 ## Data & license
 
