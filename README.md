@@ -4,6 +4,8 @@ Browse the National Gallery of Art's open-access collection and download artwork
 as pixel-exact desktop wallpapers, center-cropped to your screen's resolution via
 the NGA IIIF image API and never upscaled.
 
+![The NGA Wallpapers app showing landscape and genre paintings filtered for an ultrawide resolution](docs/screenshot.png)
+
 ## Why I built it
 
 I wanted a fresh rotation of high-resolution art on my OLED monitor. Static
