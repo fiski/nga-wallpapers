@@ -1,8 +1,8 @@
 # NGA Wallpapers
 
 Browse the National Gallery of Art's open-access collection and download artworks
-as pixel-exact desktop wallpapers — center-cropped to your screen's resolution via
-the NGA IIIF image API, never upscaled.
+as pixel-exact desktop wallpapers, center-cropped to your screen's resolution via
+the NGA IIIF image API and never upscaled.
 
 ## Why I built it
 
@@ -15,18 +15,18 @@ them in a folder I point the OS slideshow at.
 ## What it does
 
 - **Browse 68,000+ open-access works.** Filter by **Artwork Type** (Print,
-  Photograph, Drawing, Painting, Sculpture, …) with live counts, and search
+  Photograph, Drawing, Painting, Sculpture, and more) with live counts, and search
   **Subjects** with autocomplete plus clickable **tag chips that show how many
   matching works exist under your current filters**. Leave the search empty to
   browse everything.
-- **Only surfaces works that make clean wallpapers** — landscape orientation,
+- **Only surfaces works that make clean wallpapers:** landscape orientation,
   open-access rights, and a source image at least as large as your target
   resolution, so nothing is ever upscaled.
-- **Resolution presets:** 1080p (1920×1080), 1440p (2560×1440), 4K (3840×2160),
-  5K (5120×2880), and Ultrawide 21:9 (3440×1440).
-- **Preview modal** — see a large version with title, artist, year, medium, and
+- **Resolution presets:** 1080p (1920x1080), 1440p (2560x1440), 4K (3840x2160),
+  5K (5120x2880), and Ultrawide 21:9 (3440x1440).
+- **Preview modal:** see a large version with title, artist, year, medium, and
   accession number, and download just that one image.
-- **Exact cropping & batch download** — each pick is center-cropped to your exact
+- **Exact cropping and batch download:** each pick is center-cropped to your exact
   aspect ratio via IIIF and saved at full resolution. "Surprise me" grabs a random
   selection; "No duplicates" keeps one image per artwork.
 
@@ -34,7 +34,7 @@ them in a folder I point the OS slideshow at.
 
 The app fills a download folder; your OS handles the rotation:
 
-- **Windows:** Settings → Personalization → Background → **Slideshow** → choose the
+- **Windows:** Settings > Personalization > Background > **Slideshow**, choose the
   download folder, turn on **Shuffle**, and set a rotation interval.
 
 Varying the wallpaper on a schedule is the part that keeps a static image from
@@ -99,7 +99,7 @@ python scripts/wallpaper_web.py --dev   # terminal 2
 
   Also supports `--no-duplicates` and `--min-height`.
 
-- **Tkinter variant:** `python scripts/wallpaper_gui.py` — the same backend behind a
+- **Tkinter variant:** `python scripts/wallpaper_gui.py`, the same backend behind a
   simple native GUI.
 
 ## How it works
@@ -114,14 +114,14 @@ documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 ## Data & license
 
 Built on the **National Gallery of Art Open Data Program**, released under
-[Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/)
-— see [`LICENSE`](LICENSE). The dataset describes the 130,000+ artworks in the NGA
+[Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/);
+see [`LICENSE`](LICENSE). The dataset describes the 130,000+ artworks in the NGA
 collection and the artists who created them; please consider citing the
 [NGA Collection Dataset](https://github.com/NationalGalleryOfArt/opendata) when
-using the data. Images and media files are **not** part of the dataset — it
-contains only links/references, which this app resolves through IIIF (and only
+using the data. Images and media files are **not** part of the dataset; it contains
+only links and references, which this app resolves through IIIF (and only
 open-access works can be downloaded at full resolution).
 
-> `scripts/extract_opendata.py` and `scripts/refresh_github_extract.bash` are
-> NGA-internal tooling for regenerating the dataset from its collection database;
-> they are **not** needed to run the wallpaper app.
+Note: `scripts/extract_opendata.py` and `scripts/refresh_github_extract.bash` are
+NGA-internal tooling for regenerating the dataset from its collection database; they
+are **not** needed to run the wallpaper app.
