@@ -24,6 +24,10 @@
     </linearGradient>
     <clipPath id="painting"><rect x="176" y="176" width="672" height="672" rx="90"/></clipPath>
     <clipPath id="card"><rect x="0" y="0" width="1024" height="1024" rx="225"/></clipPath>
+    <mask id="moonCut" maskUnits="userSpaceOnUse" x="540" y="150" width="320" height="320">
+      <circle cx="690" cy="300" r="74" fill="white"/>
+      <circle cx="728" cy="282" r="62" fill="black"/>
+    </mask>
   </defs>
 
   <g clip-path="url(#card)">
@@ -41,9 +45,9 @@
       <circle cx="282" cy="276" r="5" fill="#cdd7ea" opacity="0.9"/>
       <circle cx="372" cy="372" r="4" fill="#cdd7ea" opacity="0.7"/>
       <circle cx="300" cy="470" r="3" fill="#cdd7ea" opacity="0.55"/>
-      <!-- moon (the glyph's circle) -->
+      <!-- crescent moon (the glyph's circle, carved to a crescent) -->
       <circle cx="690" cy="300" r="132" fill="url(#moonGlow)"/>
-      <circle cx="690" cy="300" r="70" fill="#e8eef7"/>
+      <circle cx="690" cy="300" r="70" fill="#e8eef7" mask="url(#moonCut)"/>
       <!-- mountains (the glyph's two peaks) -->
       <polygon points="200,848 460,470 720,848" fill="#18314f"/>
       <polygon points="540,848 700,582 848,848" fill="#1f3b60"/>
