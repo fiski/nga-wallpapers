@@ -1,35 +1,127 @@
-# National Gallery of Art Open Data Program
+# NGA Wallpapers
 
-The [National Gallery of Art](https://www.nga.gov) serves the United States by welcoming all people to explore and experience art, creativity, and our shared humanity. In pursuing our mission, we are making certain data about our collection available to scholars, educators, and the general public in CSV format to support research, teaching, and personal enrichment; to promote interdisciplinary research; to encourage fun and creativity; and to help people understand the inspiration behind great works of art. We hope that access to this dataset will fuel knowledge, scholarship, and innovation, inspiring uses that transform the way we discover and understand the world of art.
+Browse the National Gallery of Art's open-access collection and download artworks
+as pixel-exact desktop wallpapers — center-cropped to your screen's resolution via
+the NGA IIIF image API, never upscaled.
 
-To the extent permitted by law, the National Gallery of Art waives any copyright or related rights that it might have in this dataset and is releasing this dataset under the [Creative Commons Zero](https://creativecommons.org/publicdomain/zero/1.0/) designation.
+## Why I built it
 
-The dataset provides data records relating to the 130,000+ artworks in our collection and the artists who created them.  You can download the dataset free of charge without seeking authorization from the National Gallery of Art.  
+I wanted a fresh rotation of high-resolution art on my OLED monitor. Static
+desktops risk burn-in on OLED, so a steady supply of varied, correctly-sized
+wallpapers is both nicer to look at and easier on the panel. This app finds works
+that actually make good wallpapers, crops them exactly to my resolution, and drops
+them in a folder I point the OS slideshow at.
 
-The dataset is published in CSV format and uses UTF-8 encoding.  A [data dictionary](https://github.com/NationalGalleryOfArt/opendata/blob/master/documentation) fully describes the dataset.
+## What it does
 
-## Additional usage guidelines
+- **Browse 68,000+ open-access works.** Filter by **Artwork Type** (Print,
+  Photograph, Drawing, Painting, Sculpture, …) with live counts, and search
+  **Subjects** with autocomplete plus clickable **tag chips that show how many
+  matching works exist under your current filters**. Leave the search empty to
+  browse everything.
+- **Only surfaces works that make clean wallpapers** — landscape orientation,
+  open-access rights, and a source image at least as large as your target
+  resolution, so nothing is ever upscaled.
+- **Resolution presets:** 1080p (1920×1080), 1440p (2560×1440), 4K (3840×2160),
+  5K (5120×2880), and Ultrawide 21:9 (3440×1440).
+- **Preview modal** — see a large version with title, artist, year, medium, and
+  accession number, and download just that one image.
+- **Exact cropping & batch download** — each pick is center-cropped to your exact
+  aspect ratio via IIIF and saved at full resolution. "Surprise me" grabs a random
+  selection; "No duplicates" keeps one image per artwork.
 
-### Images and media files are not included in the dataset.
+## Set up the wallpaper rotation (OLED)
 
-While links and references to images and other media (such as audio and video files) are contained in this dataset, such images and media files are not included in this dataset or the open data program described above.  
+The app fills a download folder; your OS handles the rotation:
 
-### Our collection data is in constant flux.
+- **Windows:** Settings → Personalization → Background → **Slideshow** → choose the
+  download folder, turn on **Shuffle**, and set a rotation interval.
 
-Our collection management is a process in continuous motion and therefore the dataset released through this open data program may not be entirely complete, correct, or up to date. This dataset is provided “as is”, is updated frequently (usually once a day), and should be used at your own risk. The National Gallery of Art makes no representations or warranties of any kind. If you notice erroneous data in our public dataset, please [let us know](https://www.nga.gov/contact-us.html).
+Varying the wallpaper on a schedule is the part that keeps a static image from
+sitting on an OLED panel for hours.
 
-### Why are Wikidata Identifiers included in this dataset?
+## Getting started
 
-In 2018, the National Gallery of Art began a program with the Wikimedia Foundation to [donate open-access images and data to Wikimedia platforms](https://www.nga.gov/open-access-images/wikimedia-commons-wikidata.html). In 2022, known Wikidata Identifiers were reconciled with the National Gallery’s collections management system, and this dataset now includes Q-item values for associated Wikidata records. These associated values should not be considered exhaustive and new Wikidata Idenifiers will be added over time as the data is refreshed. These associated Wikidata Identifiers are intended as useful, stable identifiers for open data research questions and experiments.
+**Prerequisites:** Python 3.x, Node 18+, and Windows (the desktop shell uses
+WebView2 via [pywebview](https://pywebview.flowrl.com/); "Open folder" uses
+`os.startfile`).
 
-Example: [Q230673](https://www.wikidata.org/wiki/Q230673), Dorothea Lange (photographer)
+**1. Get the collection data.** The CSVs are not checked in (they're large and
+re-downloadable). Grab them from the
+[NGA Open Data repo](https://github.com/NationalGalleryOfArt/opendata) and place at
+least these three into a `data/` folder at the repo root:
 
-The National Gallery welcomes and encourages everyone to explore, enjoy, share, use, re-use, and build with its collection on Wikimedia Commons and Wikidata.
+```
+data/objects.csv
+data/published_images.csv
+data/objects_terms.csv
+```
 
-### Please consider citing the National Gallery of Art.
+(These are exactly what `load_data()` in `scripts/download_wallpapers.py` reads.)
 
-Please consider providing attribution to or citing the [National Gallery of Art's Collection Dataset](https://github.com/NationalGalleryOfArt/opendata) when using this data for research purposes, but please do not use the National Gallery of Art's logo or make any representation, express or implied, that the National Gallery of Art endorses your work without first acquiring our prior written permission to do so.
+**2. Install Python dependencies.**
 
-This statement was last updated in April 2021. We thank our colleagues across the museum community for inspiration and support in formulating this policy, especially the Metropolitan Museum of Art and its excellent open access policy. 
+```
+pip install -r requirements.txt
+```
 
+**3. Build the frontend.**
 
+```
+cd frontend
+npm install
+npm run build
+```
+
+**4. Run the app.**
+
+```
+python scripts/wallpaper_web.py
+```
+
+For frontend development with hot reload, run the Vite dev server and point the
+shell at it:
+
+```
+cd frontend && npm run dev          # terminal 1
+python scripts/wallpaper_web.py --dev   # terminal 2
+```
+
+## Other ways to use it
+
+- **Command line (no GUI):**
+
+  ```
+  python scripts/download_wallpapers.py \
+    --terms landscape,seascape --classifications Painting \
+    --width 3840 --height 2160 --limit 20
+  ```
+
+  Also supports `--no-duplicates` and `--min-height`.
+
+- **Tkinter variant:** `python scripts/wallpaper_gui.py` — the same backend behind a
+  simple native GUI.
+
+## How it works
+
+A React 19 + [Base UI](https://base-ui.com/) + Tailwind 4 frontend (built with
+Vite, TypeScript) is rendered in a native window by Python + pywebview, which
+exposes a small bridge to the backend. [pandas](https://pandas.pydata.org/) filters
+the collection CSVs, and the actual images are fetched and cropped through the NGA
+[IIIF](https://iiif.io/) image API. The data-extraction side of the pipeline is
+documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Data & license
+
+Built on the **National Gallery of Art Open Data Program**, released under
+[Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/)
+— see [`LICENSE`](LICENSE). The dataset describes the 130,000+ artworks in the NGA
+collection and the artists who created them; please consider citing the
+[NGA Collection Dataset](https://github.com/NationalGalleryOfArt/opendata) when
+using the data. Images and media files are **not** part of the dataset — it
+contains only links/references, which this app resolves through IIIF (and only
+open-access works can be downloaded at full resolution).
+
+> `scripts/extract_opendata.py` and `scripts/refresh_github_extract.bash` are
+> NGA-internal tooling for regenerating the dataset from its collection database;
+> they are **not** needed to run the wallpaper app.

@@ -1,0 +1,6 @@
+# Runtime dependencies for the NGA Wallpapers app.
+# (Test/extraction-only deps like pytest and pyodbc are intentionally omitted —
+#  see ARCHITECTURE.md for the NGA-internal data-extraction pipeline.)
+pandas
+requests
+pywebview
